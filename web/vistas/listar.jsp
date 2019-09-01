@@ -3,11 +3,16 @@
     Created on : 31/08/2019, 07:13:41 PM
     Author     : javeeto
 --%>
-
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="modelo.Alumno"%>
 <%@page import="modelo.AlumnoDAO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<jsp:useBean id="alumnoBean" scope="session" class="controlador.AlumnoBean" />
+
+
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -31,26 +36,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%
-                        AlumnoDAO dao = new AlumnoDAO();
-                        List<Alumno> list = dao.listar();
-                        Iterator<Alumno> iter = list.iterator();
-                        Alumno alumnoObj = null;
-                        while (iter.hasNext()) {
-                            alumnoObj = iter.next();
-                    %>
+                    <c:forEach var="alumnoFila" begin="0" items="${alumnoBean.alumnos}">
+                        <tr>
+                            <td class="text-center">${alumnoFila.id}</td>
+                            <td class="text-center">${alumnoFila.documento}</td>
+                            <td class="text-left">${alumnoFila.nombres}</td>
+                            <td class="text-left">${alumnoFila.apellidos}</td>
+                            <td>
+                                <a class="btn btn-warning" href="AlumnoServlet?accion=editar&id=${alumnoFila.id}">Editar</a>
+                                <a class="btn btn-danger" href="AlumnoServlet?accion=eliminar&id=${alumnoFila.id}" onclick="return confirm('Esta seguro que desea eliminar este registro');">Borrar</a>
+                            </td>
+                        </tr>                    
+                    </c:forEach>                    
 
-                    <tr>
-                        <td class="text-center"><%= alumnoObj.getId()%></td>
-                        <td class="text-center"><%= alumnoObj.getDocumento()%></td>
-                        <td class="text-left"><%= alumnoObj.getNombres()%></td>
-                        <td class="text-left"><%= alumnoObj.getApellidos()%></td>
-                        <td>
-                            <a class="btn btn-warning" href="AlumnoServlet?accion=editar&id=<%= alumnoObj.getId()%>">Editar</a>
-                            <a class="btn btn-danger" href="AlumnoServlet?accion=eliminar&id=<%= alumnoObj.getId()%>" onclick="return confirm('Esta seguro que desea eliminar este registro');">Borrar</a>
-                        </td>
-                    </tr>
-                    <% }%>
                 </tbody>
             </table>
         </div>
