@@ -11,7 +11,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <jsp:useBean id="alumnoBean" scope="session" class="controlador.AlumnoBean" />
-
+<jsp:setProperty name="alumnoBean" property="luckyNum" value="10" />
+<jsp:getProperty name="alumnoBean" property="luckyNum" /> 
 
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

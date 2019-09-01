@@ -15,6 +15,8 @@ import modelo.AlumnoDAO;
  */
 public class AlumnoBean {
     private List<Alumno> alumnos;
+    
+    private int luckyNum;
 
     public List<Alumno> getAlumnos() {
         AlumnoDAO alumObj=new AlumnoDAO();
@@ -23,6 +25,15 @@ public class AlumnoBean {
 
     public void setAlumnos(List<Alumno> alumnos) {
         this.alumnos = alumnos;
+    }
+
+    public int getLuckyNum() {
+        luckyNum=(int) (1000*Math.random());
+        return luckyNum;
+    }
+
+    public void setLuckyNum(int luckyNum) {
+        this.luckyNum = luckyNum;
     }
     
     
